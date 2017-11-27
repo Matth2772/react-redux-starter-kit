@@ -13,12 +13,14 @@ import DashboardRoute from '../components/Dashboard'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = {
-  dashboardVisitIncrement : () => dashboardVisitIncrement(1)
+  dashboardVisitIncrement: () => dashboardVisitIncrement(1)
 }
 
-const mapStateToProps = (state) => ({
-  dashboard : state.dashboard
-})
+const mapStateToProps = (state) => {
+  console.log('mapStateToProps', state)
+  return state
+
+}
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
 

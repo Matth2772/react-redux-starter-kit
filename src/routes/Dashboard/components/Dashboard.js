@@ -4,7 +4,7 @@ import Dashboard from '../../../components/Dashboard'
 class DashboardRoute extends React.Component {
   static propTypes = {
     dashboardVisitIncrement: PropTypes.func.isRequired,
-    dashboard: PropTypes.number.isRequired
+    dashboard: PropTypes.object.isRequired
   }
 
   componentDidMount () {
@@ -13,7 +13,7 @@ class DashboardRoute extends React.Component {
 
   render () {
     return (
-      <Dashboard dashboard={this.props.dashboard} />
+      <Dashboard {...this.props.dashboard} />
     )
   }
 
