@@ -4,6 +4,8 @@ import Dashboard from '../../../components/Dashboard'
 class DashboardRoute extends React.Component {
   static propTypes = {
     dashboardVisitIncrement: PropTypes.func.isRequired,
+    dashboardAddItem: PropTypes.func.isRequired,
+    dashboardEditItem: PropTypes.func.isRequired,
     dashboard: PropTypes.object.isRequired
   }
 
@@ -11,9 +13,19 @@ class DashboardRoute extends React.Component {
     this.props.dashboardVisitIncrement()
   }
 
+  updateItem = ({editItemIndex, label}) => (
+    editItemIndex === null
+      ? this.props.dashboardAddItem({label})
+      : this.props.dashboardEditItem({editItemIndex, label})
+  )
+
   render () {
     return (
-      <Dashboard {...this.props.dashboard} />
+      <Dashboard
+        visitsCount={this.props.dashboard.visitsCount}
+        dashboardItems={this.props.dashboard.dashboardItems}
+        updateItem={this.updateItem}
+      />
     )
   }
 
