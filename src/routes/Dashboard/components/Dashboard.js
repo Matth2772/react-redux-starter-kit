@@ -6,6 +6,7 @@ class DashboardRoute extends React.Component {
     dashboardVisitIncrement: PropTypes.func.isRequired,
     dashboardAddItem: PropTypes.func.isRequired,
     dashboardEditItem: PropTypes.func.isRequired,
+    dashboardReorderItems: PropTypes.func.isRequired,
     dashboard: PropTypes.object.isRequired
   }
 
@@ -19,12 +20,24 @@ class DashboardRoute extends React.Component {
       : this.props.dashboardEditItem({editItemIndex, label})
   )
 
+  reorderItem = ({start, end}) => {
+    end = parseInt(end)
+    start = parseInt(start)
+
+    const reorderIsCorrect = !isNaN(start) && !isNaN(end) && start !== end
+
+    if (reorderIsCorrect) {
+      this.props.dashboardReorderItems({start, end})
+    }
+  }
+
   render () {
     return (
       <Dashboard
         visitsCount={this.props.dashboard.visitsCount}
         dashboardItems={this.props.dashboard.dashboardItems}
         updateItem={this.updateItem}
+        reorderItem={this.reorderItem}
       />
     )
   }

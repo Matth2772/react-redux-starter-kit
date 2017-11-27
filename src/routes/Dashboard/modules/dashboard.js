@@ -1,9 +1,10 @@
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const DASHBOARD_INCREMENT = 'DASHBOARD_INCREMENT'
 export const DASHBOARD_ADD_ITEM = 'DASHBOARD_ADD_ITEM'
 export const DASHBOARD_EDIT_ITEM = 'DASHBOARD_EDIT_ITEM'
+export const DASHBOARD_REORDER_ITEM = 'DASHBOARD_REORDER_ITEM'
+export const DASHBOARD_INCREMENT = 'DASHBOARD_INCREMENT'
 
 // ------------------------------------
 // Actions
@@ -20,6 +21,14 @@ export function dashboardEditItem (value) {
   console.log('dashboardEditItem')
   return {
     type: DASHBOARD_EDIT_ITEM,
+    payload: value
+  }
+}
+
+export function dashboardReorderItems (value) {
+  console.log('dashboardReorderItem')
+  return {
+    type: DASHBOARD_REORDER_ITEM,
     payload: value
   }
 }
@@ -55,7 +64,7 @@ const ACTION_HANDLERS = {
   },
   [DASHBOARD_EDIT_ITEM]: (state, action) => {
     console.log('DASHBOARD_EDIT_ITEM', state)
-    const { label, editItemIndex: index } = action.payload
+    const {label, editItemIndex: index} = action.payload
     let newItem = {
       ...state.dashboardItems[index],
       label
@@ -68,6 +77,22 @@ const ACTION_HANDLERS = {
     return {
       ...state,
       dashboardItems: immutabledashboardItems
+    }
+  },
+  [DASHBOARD_REORDER_ITEM]: (state, action) => {
+    console.log('DASHBOARD_EDIT_ITEM', state)
+    const {end: nextPosIndex, start: currPosIndex} = action.payload
+    const element = state.dashboardItems[currPosIndex]
+    let dashboardItems = [
+      ...state.dashboardItems.slice(0, currPosIndex),
+      ...state.dashboardItems.slice(currPosIndex + 1)
+    ]
+
+    dashboardItems.splice(nextPosIndex, 0, element)
+
+    return {
+      ...state,
+      dashboardItems
     }
   },
   [DASHBOARD_INCREMENT]: (state, action) => {
