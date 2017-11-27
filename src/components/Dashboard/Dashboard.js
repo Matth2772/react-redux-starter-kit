@@ -9,20 +9,18 @@ export const Dashboard = (props) => (
         {props.dashboard}
       </span>
     </h2>
-    <button className='btn btn-default' onClick={props.increment}>
+    <button className='btn btn-default'>
       Increment
     </button>
     {' '}
-    <button className='btn btn-default' onClick={props.doubleAsync}>
+    <button className='btn btn-default'>
       Double (Async)
     </button>
   </div>
 )
 
 Dashboard.propTypes = {
-  dashboard: React.PropTypes.number.isRequired,
-  doubleAsync: React.PropTypes.func.isRequired,
-  increment: React.PropTypes.func.isRequired
+  dashboard: React.PropTypes.number.isRequired
 }
 
 export default Dashboard
